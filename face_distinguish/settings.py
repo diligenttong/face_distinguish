@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'face_distinguish.wsgi.application'
 
 DATABASES = {'default': {
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'test',  # 这里填你手动创建的数据库的名字
+    'NAME': 'face_distinguish',  # 这里填你手动创建的数据库的名字
     'HOST': '127.0.0.1',
     'PORT': 3306, 'USER': 'root',
     'PASSWORD': '313',
