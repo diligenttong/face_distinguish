@@ -21,6 +21,8 @@ from family import views as view
 from User import views
 from face_distinguish import views as view1
 urlpatterns = [
+    path('',views.login,name='login'),
+    path('/',views.login,name='login'),
     path('admin/', admin.site.urls),
     path('home/', view1.home, name='home'),
     path('user/login/',views.login,name='login'),

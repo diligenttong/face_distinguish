@@ -1,4 +1,6 @@
 
+*.xml
+.idea/face_distinguish.iml
 .idea/workspace.xml
 .idea/face_distinguish.iml
 .idea/misc.xml
