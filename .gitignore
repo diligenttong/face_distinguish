@@ -4,3 +4,9 @@
 .idea/misc.xml
 .idea/modules.xml
 .idea/vcs.xml
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+*.pyc
+face_distinguish/__pycache__/settings.cpython-37.pyc
+face_distinguish/__pycache__/urls.cpython-37.pyc
+User/__pycache__/models.cpython-37.pyc
