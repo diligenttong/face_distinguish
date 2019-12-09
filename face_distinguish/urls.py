@@ -29,9 +29,11 @@ urlpatterns = [
     path('user_logout/',views.user_logout,name='user_logout'),
     path('family/',view.family,name='family'),
     path('family/add/', view.familyAdd, name='familyAdd'),
+    path('family/add_depart_layer', view.familyAddDepartLayer, name='familyAddDepartLayer'),
     path('family/edit/<int:id>/',view.familyUpdate,name='familyUpdate'),
     path('family/del/<int:id>/', view.familyDelete, name='familyDelete'),
     path('warning/', view.warning, name='warning'),
+    path('handle/', view1.handleIndex, name='HandleIndex'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('train/<int:id>',view.train,name='train'),
 

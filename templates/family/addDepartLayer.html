@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加成员</title>
+    <link href="/static/css/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/animate.min.css">
+    <link href="/static/css/public.css">
+    <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/css/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="/static/js/pop-layer.js"></script>
+
+    <style>
+        .layer-contexnt{
+            margin-top: 56px;
+        }
+        .fm {
+            margin-left: 20px;
+        }
+
+        .input-s {
+            width: 256px;
+        }
+    </style>
+</head>
+<body>
+<form class="form-horizontal fm" role="form" id="fm">
+   <div class="layer-contexnt">
+        <table  style="border-collapse:separate; border-spacing:0 20px;">
+        <tr>
+            <td>
+                <label for="name" class="col-sm-2 control-label">用户姓名</label>
+            </td>
+            <td>
+                <div class="input-s">
+                    <input type="text" class="form-control" id="name" placeholder="请输入姓名">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="initial" class="col-sm-2 control-label">拼音首字母</label>
+            </td>
+            <td>
+                <div class="input-s">
+                    <input type="text" class="form-control" id="initial" placeholder="请输入拼音首字母">
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label class="col-sm-2 control-label" for="inputfile">信息收集</label>
+            </td>
+            <td>
+                <div class="input-s">
+                    <input type="file" id="inputfile">
+                </div>
+            </td>
+        </tr>
+    </table>
+   </div>
+
+</form>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+<script>
+    var submit = function (url) {
+
+        let name = $('#name').val();
+        let initial = $('#initial').val();
+        let inputfile = $('#inputfile').val();
+        if (name === ''){
+            layer.msg('姓名为空');
+            return
+        }else if (initial === '') {
+            layer.msg('姓名拼音缩写为空');
+            return
+        }
+        let data={
+            'name':name,
+            'initial':initial
+        };
+        sendMessage(url,data,function (res) {
+            
+        },function (e) {
+            
+        })
+    };
+
+</script>
+</body>
+</html>

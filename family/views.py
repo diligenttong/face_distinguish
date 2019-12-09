@@ -36,6 +36,11 @@ def familyAdd(request):
         models.Family.objects.filter(name=obj).create(name=name,photo=photo)
         return redirect('/family/')
     return render(request, 'family/addDepart.html', locals())
+
+@login_check
+def familyAddDepartLayer(request):
+    return render(request, 'family/addDepartLayer.html', locals())
+
 @login_check
 def familyUpdate(request,id):
     obj = models.Family.objects.filter(id=id)

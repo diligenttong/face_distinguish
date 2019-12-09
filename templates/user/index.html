@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理控制台</title>
+    <link href="/static/css/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/animate.min.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+    <script src="/static/css/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="/static/js/pop-layer.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+    <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="navbar nav-tabs navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#" data-toggle="tab">
+                    家庭防盗监控画面
+                </a>
+            </li>
+            <li>
+                <a href="#home" data-toggle="tab"><i class="fa fa-fw fa-home"></i> 首页</a>
+            </li>
+            <li>
+                <a href="#add-depart" data-toggle="tab"><i class="fa fa-fw fa-folder"></i> 添加成员</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-file-o"></i>训练</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-cog"></i> 测试</a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i>警报管理 <span
+                        class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li class="dropdown-header">警报</li>
+                    <li><a href="#">发送警报</a></li>
+                    <li><a href="#">解除警报</a></li>
+                    <li><a href="#">实时监控</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-bank"></i> 查看</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" class="tab-content ">
+        <button type="button" class="hamburger is-closed animated fadeInLeft" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div class="container tab-pane fade in active" id="home">
+            <h3 class="page-header">首页</h3>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="myCarousel" class="carousel slide">
+                        <!-- 轮播（Carousel）指标 -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                        </ol>
+                        <!-- 轮播（Carousel）项目 -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="/static/images/banner1.jpg" alt="First slide">
+                                <div class="carousel-caption carouse-title">1</div>
+                            </div>
+                            <div class="item">
+                                <img src="/static/images/banner2.jpg" alt="Second slide">
+                                <div class="carousel-caption carouse-title">2</div>
+                            </div>
+                            <div class="item">
+                                <img src="/static/images/banner3.jpg" alt="Third slide">
+                                <div class="carousel-caption carouse-title">3</div>
+                            </div>
+                            <div class="item">
+                                <img src="/static/images/banner4.jpg" alt="Third slide">
+                                <div class="carousel-caption carouse-title">4</div>
+                            </div>
+                        </div>
+                        <!-- 轮播（Carousel）导航 -->
+                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="video" style="margin-top:20px;background:#F5F5DC; border-radius: 10px;overflow: hidden">
+                        <div class="arrow glyphicon glyphicon-chevron-left"></div>
+                        <div>
+                            <ul id="vidoeUl">
+                                <li class="video1">
+                                    <div>
+                                        <video muted>
+                                            <source id="videoSource1" src="/static/images/movie.mp4"></source>
+                                            您的浏览器不支持HTML5视频播放，请升级浏览器。
+                                        </video>
+                                    </div>
+                                </li>
+                                <li class="video2">
+                                    <div>
+                                        <video muted>
+                                            <source id="videoSource2" src="/static/images/movie.mp4"></source>
+                                            您的浏览器不支持HTML5视频播放，请升级浏览器。
+                                        </video>
+                                    </div>
+                                </li>
+                                <li class="video3">
+                                    <div>
+                                        <video muted autoplay controls>
+                                            <source id="videoSource3" src="/static/images/movie.mp4"></source>
+                                            您的浏览器不支持HTML5视频播放，请升级浏览器。
+                                        </video>
+                                    </div>
+                                </li>
+                                <li class="video4">
+                                    <div>
+                                        <video muted>
+                                            <source id="videoSource4" src="/static/images/movie.mp4"></source>
+                                            您的浏览器不支持HTML5视频播放，请升级浏览器。
+                                        </video>
+                                    </div>
+                                </li>
+                                <li class="video5">
+                                    <div>
+                                        <video muted>
+                                            <source id="videoSource5" src="/static/images/movie.mp4"></source>
+                                            您的浏览器不支持HTML5视频播放，请升级浏览器。
+                                        </video>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="arrow glyphicon glyphicon-chevron-right"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid col-lg-offset-1 tab-pane fade" id="add-depart">
+            <h3 class="page-header">添加成员</h3>
+            <div class="row">
+                <div class="col-lg-10">
+                     <button type="button" class="btn btn-default" onclick="addDepartLayer('/family/add_depart_layer','')">新增</button>
+                    <table class="table">
+                    <caption>成员列表</caption>
+                    <thead>
+                    <tr>
+                        <th>产品</th>
+                        <th>付款日期</th>
+                        <th>状态</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="active">
+                        <td>产品1</td>
+                        <td>23/11/2013</td>
+                        <td>待发货</td>
+                    </tr>
+                    <tr class="success">
+                        <td>产品2</td>
+                        <td>10/11/2013</td>
+                        <td>发货中</td>
+                    </tr>
+                    <tr class="warning">
+                        <td>产品3</td>
+                        <td>20/10/2013</td>
+                        <td>待确认</td>
+                    </tr>
+                    <tr class="danger">
+                        <td>产品4</td>
+                        <td>20/10/2013</td>
+                        <td>已退货</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+<script src="/static/css/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="/static/js/file.js"></script>
+<script type="text/javascript" src="/static/js/layer/layer.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var trigger = $('.hamburger'),
+            overlay = $('.overlay'),
+            isClosed = false;
+
+        trigger.click(function () {
+            hamburger_cross();
+        });
+
+        function hamburger_cross() {
+
+            if (isClosed == true) {
+                overlay.hide();
+                trigger.removeClass('is-open');
+                trigger.addClass('is-closed');
+                isClosed = false;
+            } else {
+                overlay.show();
+                trigger.removeClass('is-closed');
+                trigger.addClass('is-open');
+                isClosed = true;
+            }
+        }
+
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('#wrapper').toggleClass('toggled');
+        });
+    });
+
+
+
+    // 面向对象方法实现视频轮播 开始
+    function LiveVideo(videoTagName, containerName) {
+        this.click = 0;
+        this.right = 0;
+        this.videoTag = document.getElementsByTagName(videoTagName);   //video元素
+        this.container = document.getElementsByClassName(containerName)[0]; //该视频轮播的div
+    }
+
+    LiveVideo.prototype.initial = function () {
+        let This = this;
+        //当视频播放完毕，自动进入下一个视频
+        for (let i = 0; i < 5; i++) {
+            This.videoTag[i].onended = function () {
+                This.toRightMove();
+            };
+        }
+        This.container.children[0].onclick = function () {
+            This.toLeftMove();
+        };
+        //点击右箭头，向右滑动
+        This.container.children[2].onclick = function () {
+            This.toRightMove();
+        };
+    };
+
+    LiveVideo.prototype.move = function () {
+        //暂停所有视频，隐藏所有控制条
+        for (let i = 0; i < 5; i++) {
+            let elem = this.videoTag[i];
+            elem.pause();
+            elem.removeAttribute("controls");
+        }
+        // 让最中间的视频始终保持播放和控制条
+        let play = (this.click + 3) <= 5 ? (this.click + 2) : (this.click + 2 - 5);
+        let middleVideo = this.videoTag[play];   //中间的video元素
+        middleVideo.play();
+        middleVideo.setAttribute("controls", "controls");
+
+        //li元素
+        let lis = this.container.children[1].children[0];
+        let lisIndex1 = ((this.click + 0) <= 5) ? (this.click - 1) : (this.click - 1 - 5);
+        let lisIndex2 = ((this.click + 1) <= 5) ? (this.click + 0) : (this.click + 0 - 5);
+        let lisIndex3 = ((this.click + 2) <= 5) ? (this.click + 1) : (this.click + 1 - 5);
+        let lisIndex4 = ((this.click + 3) <= 5) ? (this.click + 2) : (this.click + 2 - 5);
+        let lisIndex5 = ((this.click + 4) <= 5) ? (this.click + 3) : (this.click + 3 - 5);
+        lis.children[lisIndex1].setAttribute('class', 'video5');
+        lis.children[lisIndex2].setAttribute('class', 'video1');
+        lis.children[lisIndex3].setAttribute('class', 'video2');
+        lis.children[lisIndex4].setAttribute('class', 'video3');
+        lis.children[lisIndex5].setAttribute('class', 'video4');
+        // 若直接将lisIndex1的表达式写入lis.children中，thymeleaf转换不了，只能够分开写了
+    };
+
+    LiveVideo.prototype.toLeftMove = function () {
+        this.click += 1;
+        if (this.click >= 6) this.click = 1;
+        this.right = 1;
+
+        this.move();
+    };
+
+    LiveVideo.prototype.toRightMove = function () {
+        this.click -= 1;
+        if (this.click <= 0) this.click = 5;
+        if (!this.right) this.click = 4;  //解决第一次右边点击没反应
+        this.right = 1;
+
+        this.move();
+    };
+
+    var liveVideo = new LiveVideo("video", "video");
+    liveVideo.initial();
+</script>
+
+<script>
+
+
+</script>
+</body>
+</html>
