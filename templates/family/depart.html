@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="/static/css/amazeui.min.css">
+		<link rel="stylesheet" href="/static/css/admin.css">
+		<link rel="stylesheet" href="/static/css/app.css">
+	</head>
+
+	<body>
+		<div class="am-cf admin-main">
+			<!-- content start -->
+			<div class="admin-content">
+				<div class="admin-content-body">
+					<div class="am-cf am-padding am-padding-bottom-0">
+						<div class="am-fl am-cf">
+							<strong class="am-text-primary am-text-lg"> </strong><small>
+								<i class="icon-home"></i> &gt; <a href="{% url 'home' %}">首页</a> > 家庭成员</small>
+						</div>
+					</div>
+					<hr>
+					<div class="container">
+						<div class="am-g">
+							<div class="am-u-sm-12 am-u-md-6">
+								<div class="am-btn-toolbar">
+									<div class="am-btn-group am-btn-group-xs">
+										<button type="button" class="am-btn am-btn-default btnAdd">
+                                            <span class="icon-plus"></span><a href="{% url 'familyAdd' %}">新增</a>
+										</button>
+									</div>
+{#                                    <div class="am-btn-group am-btn-group-xs">#}
+{#										<button type="button" class="am-btn am-btn-default btnAdd">#}
+{#											<span class="icon-plus"></span> 训练模型#}
+{#										</button>#}
+{#									</div>#}
+								</div>
+							</div>
+							<div class="am-u-sm-12 am-u-md-3">
+								<div class="am-input-group am-input-group-sm">
+                                    <form class="am-form am-form-horizontal" action="{% url 'family' %}" method="post" style="padding-top: 30px;">{% csrf_token %}
+									<input class="am-form-field" id="departName" placeholder="请输入成员名称" type="text" name="name">
+									<span class="am-input-group-btn">
+										<button class="am-btn am-btn-default" type="submit" id="btnsearch">
+										      搜索
+										</button> </span>
+                                    </form>
+								</div>
+							</div>
+						</div>
+
+						<div class="am-g" style="margin-top: -30px;">
+							<div class="am-u-sm-12">
+								<form class="am-form">
+									<table class="am-table am-table-striped am-table-hover table-main">
+										<thead>
+											<tr>
+												<th class="table-check">
+													<input id="chkAll" type="checkbox">
+												</th>
+												<th class="table-id">
+													ID
+												</th>
+												<th class="table-title">
+													家庭成员
+												</th>
+                                                <th class="table-set">
+													成员照片
+												</th>
+												<th class="table-set">
+													操作
+												</th>
+											</tr>
+										</thead>
+										<tbody id="tUser">
+                                        {% for i in familes  %}
+                                            {% if i.id > 1 %}
+											<tr>
+												<td><input name="chks" value="27" type="checkbox"></td>
+
+												<td>{{ i.id }}</td>
+												<td>{{ i.name }}</td>
+                                                <td><img src="{{ i.photo.url}}" height="200" width="200" /></td>
+												<td>
+													<div class="am-btn-toolbar">
+                                                        <div class="am-btn-group am-btn-group-xs"><button type="button" id="depart_27" class="am-btn am-btn-default am-btn-xs am-text-secondary btnedit"><span class="am-icon-pencil-square-o"></span> <a href="{% url 'familyUpdate' i.id %}">编辑</a></button><button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger amt-hide-sm-only" onclick="deleteDepart(27,1)"><span class="am-icon-trash-o"></span>  <a href={% url 'familyDelete' i.id %}>删除</a></button><button type="button" class="am-btn am-btn-default btnAdd">
+											<span class="icon-plus"></span> <a href={% url 'train'  i.id %}>训练模型</a>
+										</button></div>
+													</div>
+												</td>
+											</tr>
+                                            {% endif %}
+                                        {% endfor %}
+										</tbody>
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- content end -->
+			</div>
+		</div>
+
+		<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="/static/js/jquery-1.9.1.min.js"></script>
+		<!--<![endif]-->
+		<script type="text/javascript" src="/static/js/plugs.js"></script>
+
+	</body>
+
+</html>

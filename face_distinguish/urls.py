@@ -13,9 +13,26 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from face_distinguish import settings
+from django.views.static import serve
 from django.contrib import admin
-from django.urls import path
-
+from django.urls import path,re_path
+from family import views as view
+from User import views
+from face_distinguish import views as view1
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home/', view1.home, name='home'),
+    path('user/login/',views.login,name='login'),
+    path('user_logout/',views.user_logout,name='user_logout'),
+    path('family/',view.family,name='family'),
+    path('family/add/', view.familyAdd, name='familyAdd'),
+    path('family/edit/<int:id>/',view.familyUpdate,name='familyUpdate'),
+    path('family/del/<int:id>/', view.familyDelete, name='familyDelete'),
+    path('warning/', view.warning, name='warning'),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    path('train/<int:id>',view.train,name='train'),
+
+
+
 ]

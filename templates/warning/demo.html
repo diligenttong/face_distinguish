@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <link rel="stylesheet" href="/static/css/nav.css">
+</head>
+
+<body>
+    <div style="height: 100px;text-align: center;font-size: 22px;font-weight: bold;padding-top: 30px;">
+        监控警报界面：为了您的家庭安全，请谨慎使用此功能。<br>
+        一旦发送警报，系统会自动跳转到报警界面。
+    </div>
+	
+    <div id="nav" data-scroll="1">
+        <div class="center">
+            <input style="height:80px;width:160px;display:inline-block;" id="addRole" class="am-btn am-btn-success" value="发送警报" type="button">
+            <input style="height:80px;width:160px;display:inline-block;" id="addRole" class="am-btn am-btn-success" value="解除警报" type="button">
+            <input style="height:80px;width:160px;display:inline-block;" id="addRole" class="am-btn am-btn-success" value="关掉警报" type="button">
+        </div>
+        
+    </div>
+	<div class="am-u-sm-9">
+									<textarea rows="300" cols="300" placeholder="警报描述" name="roleDesc"></textarea>
+								</div>
+    <div style="height: 1100px;"></div>
+
+    <script>
+        window.onscroll = function () {
+            var scrollTop = (document.documentElement && document.documentElement.scrollTop) || document.body
+                .scrollTop;
+            var nav = document.querySelector("#nav");
+            if (scrollTop <= 100) {
+                nav.setAttribute('data-scroll', '1');
+            } else {
+                nav.setAttribute('data-scroll', '0');
+            }
+        }
+    </script>
+</body>
+
+</html>
