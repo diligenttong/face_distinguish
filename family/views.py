@@ -75,5 +75,5 @@ def warning(request):
 def train(request,id):
     obj = models.Family.objects.filter(id=id).first()
     img = obj.photo
-    ret = {"code":1000,"img":img}
+    ret = {"img":img}
     return  JsonResponse(ret)
