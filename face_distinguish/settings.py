@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'User.apps.UserConfig',
+    'family',
+    'warning',
+
 ]
 
 MIDDLEWARE = [
@@ -75,11 +78,14 @@ WSGI_APPLICATION = 'face_distinguish.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+DATABASES = {'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'test',  # 这里填你手动创建的数据库的名字
+    'HOST': '127.0.0.1',
+    'PORT': 3306, 'USER': 'root',
+    'PASSWORD': '313',
+    'OPTIONS': {'charset': 'utf8'}
+}
 }
 
 
@@ -120,3 +126,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+# 发送邮箱设置
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_HOST_USER = "330023469@qq.com"
+EMAIL_HOST_PASSWORD = "itvfgpezqadxcaba"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "330023469@qq.com"
