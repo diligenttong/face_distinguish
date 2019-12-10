@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
@@ -14,31 +14,10 @@
 
 
     <style>
-        .dp {
-            display: inline-block;
-            padding: 15px;
-            /*超出文字隐藏*/
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width: 300px;
-            max-width: 356px;
-            max-height: 560px;
-            background: rosybrown;
+        .video_viewer img{
+            width: 700px;
+            height: 560px;
         }
-
-        .dp .dp-title img {
-            width: 270px;
-            height: 200px;
-            /*图片上的动画在2秒内完成*/
-            transition: all 1.5s;
-        }
-
-        .dp .dp-title img:hover {
-            transform: scale(1.2);
-
-        }
-
 
     </style>
 </head>
@@ -245,7 +224,11 @@
             <h3 class="page-header">视频画面</h3>
             <div class="row">
                 <div class="col-lg-10">
-                    <img id="video" src="/video_viewer">
+                    <button class="btn btn-default" onclick="setVideoViewerState('/video_viewer_state',true)">实时画面</button>
+                    <button class="btn btn-default" onclick="setVideoViewerState('/video_viewer_state',false)">暂停画面</button>
+                    <div class="video_viewer">
+                        <img id="video-viewer" src="/video_viewer">
+                    </div>
                 </div>
             </div>
         </div>
@@ -379,7 +362,16 @@
 </script>
 
 <script>
+    var setVideoViewerState = function (url,state) {
 
+        let json_data = {
+            'play_state':state
+        };
+        sendMessage(url,json_data,function (res) {
+        },function (e) {
+            
+        })
+    }
 
 </script>
 </body>

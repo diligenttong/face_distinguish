@@ -31,30 +31,46 @@ class RecordingThread (threading.Thread):
 
 class VideoCamera(object):
     def __init__(self):
-        # Open a camera
+
         self.cap = cv2.VideoCapture(0)
         
-        # Initialize video recording environment
+
         self.is_record = False
+        self.play_state = False
         self.out = None
-        
-        # Thread for recording
+
         self.recordingThread = None
     
     def __del__(self):
         self.cap.release()
     
     def get_frame(self):
-        ret, frame = self.cap.read()
-
-        if ret:
+        ret = False
+        frame = None
+        if self.cap is not None:
+            ret, frame = self.cap.read()
+        if ret and self.play_state:
             frame = cv2.flip(frame, 1)
             ret, jpeg = cv2.imencode('.jpg', frame)
 
             return jpeg.tobytes()
-      
         else:
             return None
+
+    def set_play_state(self,state = False):
+        self.play_state = state
+
+    def start_video(self):
+        self.cap = cv2.VideoCapture(0)
+        self.play_state = True
+
+    def stop_video(self):
+        if self.cap is not None:
+            self.cap.release()
+            self.cap = None
+            self.play_state = False
+
+
 
     def start_record(self, save_video_path):
         self.is_record = True
