@@ -63,28 +63,7 @@
 </form>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
-    var submit = function (url) {
 
-        let name = $('#name').val();
-        let initial = $('#initial').val();
-        let inputfile = $('#inputfile').val();
-        if (name === ''){
-            layer.msg('姓名为空');
-            return
-        }else if (initial === '') {
-            layer.msg('姓名拼音缩写为空');
-            return
-        }
-        let data={
-            'name':name,
-            'initial':initial
-        };
-        sendMessage(url,data,function (res) {
-            
-        },function (e) {
-            
-        })
-    };
 
 </script>
 </body>

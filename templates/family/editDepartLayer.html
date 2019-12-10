@@ -55,23 +55,6 @@
 </form>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
-    var submit = function (url) {
-        let id = $('#id').val();
-        let name = $('#name').val();
-        if (name === '') {
-            layer.msg('姓名为空');
-            return
-        }
-        let data = {
-            'id': id,
-            'name': name,
-        };
-        sendMessage(url, data, function (res) {
-
-        }, function (e) {
-
-        })
-    };
 
     var setValue = function (id, depart_name) {
         $('#id').val(id);

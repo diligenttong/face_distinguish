@@ -39,11 +39,46 @@ def familyAdd(request):
 
 
 def familyAddDepartLayer(request):
+    ret = {"success": False, "context": {"msg":""}}
+    if request.method == "POST":
+        data = simplejson.loads(request.body.decode())
+        name = data["name"]
+        initial = data["initial"]
+        num = models.Family.objects.create(name=name)
+        if num:
+            ret['success'] = True
+            ret['context'] ['msg'] = '添加成功'
+        else:
+            ret['success'] = False
+            ret['context']['msg'] = '失败了'
+        return JsonResponse(ret)
     return render(request, 'family/addDepartLayer.html', locals())
-
+import simplejson
 def familyEditDepartLayer(request):
+    ret = {"success": False, "context": {"msg":""}}
+    if request.method == "POST":
+        data = simplejson.loads(request.body.decode())
+        id = data["id"]
+        name = data["name"]
+        num = models.Family.objects.update(id=id,name=name)
+        if num >= 1:
+            ret['success'] = True
+            ret['context'] ['msg'] = '编辑成功'
+        else:
+            ret['success'] = False
+            ret['context']['msg'] = '失败了'
+        return JsonResponse(ret)
+
     return render(request, 'family/editDepartLayer.html', locals())
 
+
+def familyAddDepart(request):
+    ret = {"success":False, "context":""}
+    #TODO： 解析json数据，写入库 如果成功，返回 {success:True,context:{msg:成功}
+    #如果失败未知原因 返回{success:False,context:{msg:失败}
+    #如果失败 已知原因  返回{success:False,context:{msg:原因}
+
+    return JsonResponse(ret)
 
 
 @login_check

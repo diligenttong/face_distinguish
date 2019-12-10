@@ -15,7 +15,7 @@
 
     <style>
         .dp {
-            display: block;
+            display: inline-block;
             padding: 15px;
             /*超出文字隐藏*/
             overflow: hidden;
@@ -190,25 +190,24 @@
             <div class="row">
                 <div class="col-lg-10">
                     <button type="button" class="btn btn-default"
-                            onclick="addDepartLayer('/family/add_depart_layer','')">新增
+                            onclick="addDepartLayer('/family/add_depart_layer','/family/add_depart_layer')">新增
                     </button>
                     <div class="dps">
-
+                        {% for i in all_queryset %}
                         <div class="dp">
                             <div class="dp-title">
                                 <img src="/static/images/banner1.jpg" class="img-thumbnail" alt="">
-                                <h3>谢桐</h3>
+                                <h3>{{ i.name }}</h3>
                             </div>
                             <div class="dp-handle">
-                                <p><b>学校:</b>井岗山大学</p>
-                                <p><b>职位:</b>项目经理</p>
-                                <button class="btn btn-default" onclick="editDepartLayer('/family/edit_depart_layer','','1','谢桐')">
+                                <button class="btn btn-default" onclick="editDepartLayer('/family/edit_depart_layer','/family/edit_depart_layer',{{ i.id }},'{{ i.name }}')">
                                     <span class="glyphicon glyphicon-pencil"> </span> 编辑
                                 </button>
-                                <button class="btn btn-default" onclick="deleteDepart('',1)"><span class="glyphicon glyphicon-trash"> </span> 删除
+                                <button class="btn btn-default" onclick="deleteDepart('',{{ i.id }})"><span class="glyphicon glyphicon-trash"> </span> 删除
                                 </button>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
