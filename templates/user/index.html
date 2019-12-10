@@ -15,7 +15,10 @@
 
     <style>
 
-
+        .video_viewer img{
+            width: 700px;
+            height: 560px;
+        }
 
     </style>
 </head>
@@ -196,10 +199,10 @@
             <h3 class="page-header">视频画面</h3>
             <div class="row">
                 <div class="col-lg-10">
-                    <button class="btn btn-default">实时画面</button>
-                    <button class="btn btn-default">暂停画面</button>
+                    <button class="btn btn-default" onclick="setVideoViewerState('/video_viewer_state',true)">实时画面</button>
+                    <button class="btn btn-default" onclick="setVideoViewerState('/video_viewer_state',false)">暂停画面</button>
                     <div class="video_viewer">
-{#                        <img id="video" src="/video_viewer">#}
+                        <img id="video-viewer" src="/video_viewer">
                     </div>
                 </div>
             </div>
@@ -321,7 +324,16 @@
 </script>
 
 <script>
+    var setVideoViewerState = function (url,state) {
 
+        let json_data = {
+            'play_state':state
+        };
+        sendMessage(url,json_data,function (res) {
+        },function (e) {
+            
+        })
+    }
 
 </script>
 </body>
