@@ -288,6 +288,47 @@ class Res10CaffeFaceModel:
         vs.stop()
 
 
+    def get_frame_face(self, path):
+        if not os.path.exists(path):
+            os.makedirs(path)
+        vs = VS(src=0).start()
+        time.sleep(2)
+        fs = FS().start()
+        imgCount = 0
+        frameCount = 0
+        while (True):
+            frame = vs.read()
+            frameCount += 1
+            img = frame
+            fs.update()
+            img = IT.resize(img, width=600)
+            img_h, img_w, img_channel = img.shape
+            img_blob = cv2.dnn.blobFromImage(
+                cv2.resize(img, (300, 300)), 1.0, (300, 300),
+                (104.0, 177.0, 123.0), swapRB=False, crop=False)
+            # 输入待识别
+            self._faceDetectModel.setInput(img_blob)
+            detections = self._faceDetectModel.forward()
+            if len(detections) > 0:
+                index = np.argmax(detections[0, 0, :, 2])
+                confidence = detections[0, 0, index, 2]
+                if confidence > self._confidence:
+                    # 计算出脸的边界框的x,y坐标
+                    box = detections[0, 0, index, 3:7] * np.array([img_w, img_h, img_w, img_h])
+                    (startX, startY, endX, endY) = box.astype("int")
+                    startX -= 40
+                    startY -= 70
+                    endX += 80
+                    endY += 200
+                    temp_img = frame.copy()
+                    img = cv2.rectangle(frame, (startX, startY), (endX,endY), (255, 0, 0), 2)
+                    roi_img = temp_img[startY:endY, startX:endX]
+                    if frameCount % 10 == 0 and imgCount <= 100:
+                       cv2.imwrite(path + '/' + str(imgCount) + ".png", roi_img)
+                       imgCount += 1
+            cv2.imshow("Collection", frame)
+
+
 
 
 

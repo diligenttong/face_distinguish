@@ -3,6 +3,7 @@ from django import views
 from User import models
 from face_distinguish import settings
 from django.http import JsonResponse
+import json
 # Create your views here.
 
 def login_check(func):
@@ -41,7 +42,7 @@ def familyAdd(request):
 def familyAddDepartLayer(request):
     ret = {"success": False, "context": {"msg":""}}
     if request.method == "POST":
-        data = simplejson.loads(request.body.decode())
+        data = json.loads(request.body.decode())
         name = data["name"]
         initial = data["initial"]
         num = models.Family.objects.create(name=name)
@@ -53,7 +54,7 @@ def familyAddDepartLayer(request):
             ret['context']['msg'] = '失败了'
         return JsonResponse(ret)
     return render(request, 'family/addDepartLayer.html', locals())
-import json
+
 def familyEditDepartLayer(request):
     ret = {"success": False, "context": {"msg":""}}
     if request.method == "POST":

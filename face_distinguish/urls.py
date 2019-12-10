@@ -35,6 +35,9 @@ urlpatterns = [
 
     path('video_viewer',videoStreamView.videoViewer,name='videoViewer'),
     path('video_viewer_state',videoStreamView.videoViewerState,name='videoViewer'),
+    path('video_collection_info_layer', videoStreamView.videoCollectionInfoLayer, name='videoCollectionInfoLayer'),
+    path('video_collection_info', videoStreamView.videoCollectionInfo, name='videoCollectionInfo'),
+    path('video_collection_info_stop', videoStreamView.videoCollectionInfoStop, name='videoCollectionInfoStop'),
 
 
     path('warning/', view.warning, name='warning'),

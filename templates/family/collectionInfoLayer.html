@@ -26,34 +26,23 @@
 <body>
 <form class="form-horizontal fm" role="form" id="fm">
    <div class="layer-contexnt">
-        <table  style="border-collapse:separate; border-spacing:0 20px;">
-        <tr>
-            <td>
-                <label for="name" class="col-sm-2 control-label">用户姓名</label>
-            </td>
-            <td>
-                <div class="input-s">
-                    <input type="text" class="form-control" id="name" placeholder="请输入姓名">
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label for="initial" class="col-sm-2 control-label">拼音首字母</label>
-            </td>
-            <td>
-                <div class="input-s">
-                    <input type="text" class="form-control" id="initial" placeholder="请输入拼音首字母">
-                </div>
-            </td>
-        </tr>
-    </table>
+
    </div>
 
 </form>
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 <script>
 
+    var childFunction = function (initial) {
+        let str = "<img id=\"\" src=\"/video_collection_info?initial="+initial+"\">";
+        let stra = "<a id=\"stop\" href=\"/video_collection_info_stop\">ttt</a>";
+        $('.layer-contexnt').append(str);
+        $('.layer-contexnt').append(stra);
+    };
+    var stopCllocetion = function () {
+        console.log("ttt");
+        $('#stop').click()
+    }
 
 </script>
 </body>
