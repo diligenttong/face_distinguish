@@ -25,22 +25,16 @@ urlpatterns = [
     path('',views.login,name='login'),
     path('/',views.login,name='login'),
     path('admin/', admin.site.urls),
-    path('home/', view1.home, name='home'),
     path('user/login/',views.login,name='login'),
     path('user_logout/',views.user_logout,name='user_logout'),
-
-    path('family/',view.family,name='family'),
-    path('family/add/', view.familyAdd, name='familyAdd'),
+    path('handle/', view1.handleIndex, name='HandleIndex'),
     path('family/add_depart_layer', view.familyAddDepartLayer, name='familyAddDepartLayer'),
     path('family/edit_depart_layer', view.familyEditDepartLayer, name='familyEditDepartLayer'),
-    path('family/edit/<int:id>/',view.familyUpdate,name='familyUpdate'),
-    path('family/del/<int:id>/', view.familyDelete, name='familyDelete'),
-
-
+    path('family/delete_depart', view.delete_depart, name='delete_depart'),
     path('video_viewer',videoStreamView.videoViewer,name='videoViewer'),
 
+
     path('warning/', view.warning, name='warning'),
-    path('handle/', view1.handleIndex, name='HandleIndex'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('train/<int:id>',view.train,name='train'),
 

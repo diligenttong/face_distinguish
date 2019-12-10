@@ -53,11 +53,12 @@ def familyAddDepartLayer(request):
             ret['context']['msg'] = '失败了'
         return JsonResponse(ret)
     return render(request, 'family/addDepartLayer.html', locals())
-import simplejson
+import json
 def familyEditDepartLayer(request):
     ret = {"success": False, "context": {"msg":""}}
     if request.method == "POST":
-        data = simplejson.loads(request.body.decode())
+        data = json.loads(request.body.decode())
+        print(data)
         id = data["id"]
         name = data["name"]
         num = models.Family.objects.update(id=id,name=name)
@@ -71,14 +72,28 @@ def familyEditDepartLayer(request):
 
     return render(request, 'family/editDepartLayer.html', locals())
 
-
-def familyAddDepart(request):
-    ret = {"success":False, "context":""}
-    #TODO： 解析json数据，写入库 如果成功，返回 {success:True,context:{msg:成功}
-    #如果失败未知原因 返回{success:False,context:{msg:失败}
-    #如果失败 已知原因  返回{success:False,context:{msg:原因}
-
+def delete_depart(request):
+    ret = {"success": False, "context": {"msg": ""}}
+    data = simplejson.loads(request.body.decode())
+    id = data['id']
+    s = models.Family.objects.filter(id=id).delete()
+    if s:
+        ret['success'] = True
+        ret['context']['msg'] = '删除成功'
+    else:
+        ret['success'] = False
+        ret['context']['msg'] = '删除失败，请重新删除'
     return JsonResponse(ret)
+
+
+
+# def familyAddDepart(request):
+#     ret = {"success":False, "context":""}
+#     #TODO： 解析json数据，写入库 如果成功，返回 {success:True,context:{msg:成功}
+#     #如果失败未知原因 返回{success:False,context:{msg:失败}
+#     #如果失败 已知原因  返回{success:False,context:{msg:原因}
+#
+#     return JsonResponse(ret)
 
 
 @login_check
