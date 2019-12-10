@@ -16,10 +16,11 @@ Including another URLconf
 from face_distinguish import settings
 from django.views.static import serve
 from django.contrib import admin
-from django.urls import path,re_path
+from django.urls import path,re_path,include
 from family import views as view
 from User import views
 from face_distinguish import views as view1
+from video_stream import videoStreamView
 urlpatterns = [
     path('',views.login,name='login'),
     path('/',views.login,name='login'),
@@ -36,10 +37,13 @@ urlpatterns = [
     path('family/del/<int:id>/', view.familyDelete, name='familyDelete'),
 
 
+    path('video_viewer',videoStreamView.videoViewer,name='videoViewer'),
+
     path('warning/', view.warning, name='warning'),
     path('handle/', view1.handleIndex, name='HandleIndex'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     path('train/<int:id>',view.train,name='train'),
+
 
 
 
