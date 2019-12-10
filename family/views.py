@@ -45,7 +45,7 @@ def familyAddDepartLayer(request):
         data = json.loads(request.body.decode())
         name = data["name"]
         initial = data["initial"]
-        num = models.Family.objects.create(name=name)
+        num = models.Family.objects.create(name=name,initial=initial)
         if num:
             ret['success'] = True
             ret['context'] ['msg'] = '添加成功'
