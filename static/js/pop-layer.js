@@ -70,16 +70,24 @@ var addDepartLayer = function (pageurl, submiturl) {
         yes: function (index, layero) {
             //获取子窗口中iframe中id为fmcollection的表格文本
             let formdocument = $(layero).find("iframe")[0].contentWindow.document.getElementById("fm");
-            let iframeWin = window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
-            // var formdata=new FormData(formdocument); //ie不兼容
-            // var course_id=formdata.get("name");
-            //获取表单内需要传送的值
-            //var name=formdocument["name"].value;
-            //所有表单数据转为JSON
-            /*for(var entry of formdata.entries()){
-                jsondata[entry[0]] = entry[1];
-            }*/
-            iframeWin.submit(submiturl)
+            let name = formdocument["name"].value;
+            let initial = formdocument["initial"].value;
+            if (name === '') {
+                layer.msg('姓名为空');
+                return
+            } else if (initial === '') {
+                layer.msg('姓名拼音缩写为空');
+                return
+            }
+            let data = {
+                'name': name,
+                'initial': initial
+            };
+            sendMessage(url, data, function (res) {
+
+            }, function (e) {
+
+            })
         },
         btn2: function (index, layero) {
         },
@@ -120,18 +128,36 @@ var editDepartLayer = function (pageurl, submiturl, id, depart_name) {
         content: pageurl,
         //确定按钮被点击 ,index 当前层索引 layero 当前层的doc 顺序和success的相反
         yes: function (index, layero) {
-            //获取子窗口中iframe中id为fmcollection的表格文本
+            //获取子窗口中iframe中id为fm的表格文本
             let formdocument = $(layero).find("iframe")[0].contentWindow.document.getElementById("fm");
-            let iframeWin = window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
-            // var formdata=new FormData(formdocument); //ie不兼容
-            // var course_id=formdata.get("name");
             //获取表单内需要传送的值
-            //var name=formdocument["name"].value;
-            //所有表单数据转为JSON
-            /*for(var entry of formdata.entries()){
-                jsondata[entry[0]] = entry[1];
-            }*/
-            iframeWin.submit(submiturl)
+            let name = formdocument["name"].value;
+            let id = formdocument["id"].value;
+
+            if (name === '') {
+                layer.msg('姓名为空');
+                return
+            }
+            let data = {
+                'id': id,
+                'name': name,
+            };
+            sendMessage(submiturl, data, function (res) {
+                let resp = res;
+                let success = resp['success'];
+                if (success) {
+                    let ct = resp['context'];
+                    let msg = ct['msg'];
+                    layer.close(index);
+                    successLayerAlert(msg, true);
+                } else {
+                    let ct = resp['context'];
+                    let msg = ct['msg'];
+                    failLayerAlert(msg, false);
+                }
+            }, function (e) {
+                failLayerAlert('发送失败!', false);
+            })
         },
         btn2: function (index, layero) {
         },
@@ -150,33 +176,33 @@ var editDepartLayer = function (pageurl, submiturl, id, depart_name) {
  **修改成员弹出层 js end
  *******************************************/
 
-var deleteDepart = function (url,id) {
-let strTip="确定<span style='color:red;'>删除?</span>";
-    layer.confirm(strTip,{btn:["确定","算了"],title:"警告",icon:3},function(index){
-        let layerIndex=layer.msg("正在删除,请稍后!!",{
-            shadeClose:false,//点击遮罩层不关闭
-            time:60000,//60秒后自动关闭
+var deleteDepart = function (url, id) {
+    let strTip = "确定<span style='color:red;'>删除?</span>";
+    layer.confirm(strTip, {btn: ["确定", "算了"], title: "警告", icon: 3}, function (index) {
+        let layerIndex = layer.msg("正在删除,请稍后!!", {
+            shadeClose: false,//点击遮罩层不关闭
+            time: 60000,//60秒后自动关闭
             icon: 16, // 0~2 ,0比较好看
-            shade: [0.5,'black'] // 黑色透明度0.5背景
+            shade: [0.5, 'black'] // 黑色透明度0.5背景
         });
-        let jsondata={
-           'id':id
+        let jsondata = {
+            'id': id
         };
-        sendMessage(url,jsondata,function (res) {
+        sendMessage(url, jsondata, function (res) {
             let resp = res;
             let data = res.data;
-            if (data.success){
+            if (data.success) {
                 layer.close(layerIndex);
-                successLayerAlert("删除成功!",false);
-            }else {
+                successLayerAlert("删除成功!", false);
+            } else {
                 layer.close(layerIndex);
                 let ct = data.context;
                 let msg = ct.msg;
-                failLayerAlert("删除失败！"+msg,false);
+                failLayerAlert("删除失败！" + msg, false);
             }
 
 
-        },function (e) {
+        }, function (e) {
 
         });
     });
