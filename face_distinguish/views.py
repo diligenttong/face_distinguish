@@ -5,6 +5,7 @@ def home(request):
 
 def handleIndex(request):
     all_queryset = Family.objects.all()
+    print(request.body)
     return render(request,'user/index.html',locals())
 
 # def familyAddDepartLayer(request):

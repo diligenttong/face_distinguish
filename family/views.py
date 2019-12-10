@@ -42,6 +42,14 @@ def familyAddDepartLayer(request):
     return render(request, 'family/addDepartLayer.html', locals())
 
 
+def familyAddDepart(request):
+    ret = {"success":False, "context":""}
+    #TODO： 解析json数据，写入库 如果成功，返回 {success:True,context:{msg:成功}
+    #如果失败未知原因 返回{success:False,context:{msg:失败}
+    #如果失败 已知原因  返回{success:False,context:{msg:原因}
+
+    return JsonResponse(ret)
+
 
 @login_check
 def familyUpdate(request,id):
