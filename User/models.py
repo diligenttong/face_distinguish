@@ -3,8 +3,10 @@ from django.db import models
 # Create your models here.
 class Family(models.Model):
     name = models.CharField(max_length=32)
+    initial = models.CharField(max_length=24)
     photo = models.ImageField(null=True, upload_to='familyMember/', blank=True,
                               default='familyMember/wu.jpg')
+
 
     def __str__(self):
         return self.name
