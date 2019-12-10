@@ -92,3 +92,57 @@ var addDepartLayer=function (pageurl,submiturl){
 /********************************************
  **添加成员弹出层 js end
  *******************************************/
+
+
+
+/*******************************************
+ **修改成员弹出层 js start
+ *******************************************/
+/**
+ * 修改成员弹出层
+ * @param pageurl 弹出层路径
+ * @param  submiturl  弹出层数据提交路径
+ * @param  id  需要修改的id
+ * @param  depart_name  需要修改的名字
+ */
+var editDepartLayer=function (pageurl,submiturl,id,depart_name){
+    layer.open({
+        type:2,//2表示弹出框类型
+        title:'编辑成员',
+        skin:'CLYM-style',
+        btn:['确定','取消'],
+        maxmin:false,
+        area:['456px','560px'],
+        shift:1,//弹出框动画效果
+        scrollbar: false, // 父页面 滚动条 禁止
+        content: pageurl,
+        //确定按钮被点击 ,index 当前层索引 layero 当前层的doc 顺序和success的相反
+        yes:function (index,layero) {
+            //获取子窗口中iframe中id为fmcollection的表格文本
+            let formdocument=$(layero).find("iframe")[0].contentWindow.document.getElementById("fm");
+            let iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
+            // var formdata=new FormData(formdocument); //ie不兼容
+            // var course_id=formdata.get("name");
+            //获取表单内需要传送的值
+            //var name=formdocument["name"].value;
+            //所有表单数据转为JSON
+            /*for(var entry of formdata.entries()){
+                jsondata[entry[0]] = entry[1];
+            }*/
+            iframeWin.submit(submiturl)
+        },
+        btn2:function( index,layero){
+        },
+        //弹出界面成功后执行
+        success:function (layero,index) {
+            let iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
+            iframeWin.setValue(id,depart_name)
+        },
+        //layer结束时调用
+        end: function(){}
+    })
+};
+
+/********************************************
+ **修改成员弹出层 js end
+ *******************************************/

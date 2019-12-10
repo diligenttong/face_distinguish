@@ -11,6 +11,34 @@
     <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
     <script src="/static/css/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script src="/static/js/pop-layer.js"></script>
+
+
+    <style>
+        .dp {
+            display: block;
+            padding: 15px;
+            /*超出文字隐藏*/
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 300px;
+            max-width: 356px;
+            max-height: 560px;
+            background: rosybrown;
+        }
+        .dp .dp-title img {
+            width: 270px;
+            height: 200px;
+            /*图片上的动画在2秒内完成*/
+            transition: all 1.5s;
+        }
+        .dp .dp-title img:hover {
+            transform: scale(1.2);
+
+        }
+
+
+    </style>
 </head>
 <body>
 
@@ -161,43 +189,27 @@
             <h3 class="page-header">添加成员</h3>
             <div class="row">
                 <div class="col-lg-10">
-                     <button type="button" class="btn btn-default" onclick="addDepartLayer('/family/add_depart_layer/','')">新增</button>
-                    <table class="table">
-                    <caption>家庭成员</caption>
-                    <thead>
-                    <tr>
-                        <th>姓名</th>
-                        <th>照片</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for i in all_queryset %}
-                    <tr class="active">
-                        <td>{{ i.name }}</td>
-                        <td><img src="{{ i.photo}}" height="200" width="200" /></td>
-                        <td><div class="am-btn-group am-btn-group-xs"><button type="button" id="depart_27" class="am-btn am-btn-default am-btn-xs am-text-secondary btnedit"><span class="am-icon-pencil-square-o"></span> <a href="{% url 'familyUpdate' i.id %}">编辑</a></button><button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger amt-hide-sm-only" onclick="deleteDepart(27,1)"><span class="am-icon-trash-o"></span>  <a href={% url 'familyDelete' i.id %}>删除</a></button><button type="button" class="am-btn am-btn-default btnAdd">
-										</button></div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-{#                    <tr class="success">#}
-{#                        <td>产品2</td>#}
-{#                        <td>10/11/2013</td>#}
-{#                        <td>发货中</td>#}
-{#                    </tr>#}
-{#                    <tr class="warning">#}
-{#                        <td>产品3</td>#}
-{#                        <td>20/10/2013</td>#}
-{#                        <td>待确认</td>#}
-{#                    </tr>#}
-{#                    <tr class="danger">#}
-{#                        <td>产品4</td>#}
-{#                        <td>20/10/2013</td>#}
-{#                        <td>已退货</td>#}
-{#                    </tr>#}
-                    </tbody>
-                </table>
+                    <button type="button" class="btn btn-default"
+                            onclick="addDepartLayer('/family/add_depart_layer','')">新增
+                    </button>
+                    <div class="dps">
+
+                        <div class="dp">
+                            <div class="dp-title">
+                                <img src="/static/images/banner1.jpg" class="img-thumbnail" alt="">
+                                <h3>谢桐</h3>
+                            </div>
+                            <div class="dp-handle">
+                                <p><b>学校:</b>井岗山大学</p>
+                                <p><b>职位:</b>项目经理</p>
+                                <button class="btn btn-default" onclick="editDepartLayer('/family/edit_depart_layer','','1','谢桐')">
+                                    <span class="glyphicon glyphicon-pencil"> </span> 编辑
+                                </button>
+                                <button class="btn btn-default"><span class="glyphicon glyphicon-trash"> </span> 删除
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -241,7 +253,6 @@
             $('#wrapper').toggleClass('toggled');
         });
     });
-
 
 
     // 面向对象方法实现视频轮播 开始
