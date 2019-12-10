@@ -15,7 +15,7 @@
 
     <style>
         .dp {
-            display: block;
+            display: inline-block;
             padding: 15px;
             /*超出文字隐藏*/
             overflow: hidden;
@@ -190,7 +190,7 @@
             <div class="row">
                 <div class="col-lg-10">
                     <button type="button" class="btn btn-default"
-                            onclick="addDepartLayer('/family/add_depart_layer','')">新增
+                            onclick="addDepartLayer('/family/add_depart_layer','/family/add_depart_layer')">新增
                     </button>
                     <div class="dps">
                         {% for i in all_queryset %}

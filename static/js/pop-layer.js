@@ -83,10 +83,22 @@ var addDepartLayer = function (pageurl, submiturl) {
                 'name': name,
                 'initial': initial
             };
-            sendMessage(url, data, function (res) {
+            sendMessage(submiturl, data, function (res) {
 
+               let resp = res;
+                let success = resp['success'];
+                if (success) {
+                    let ct = resp['context'];
+                    let msg = ct['msg'];
+                    layer.close(index);
+                    successLayerAlert(msg, true);
+                } else {
+                    let ct = resp['context'];
+                    let msg = ct['msg'];
+                    failLayerAlert(msg, false);
+                }
             }, function (e) {
-
+                failLayerAlert('发送失败!', false);
             })
         },
         btn2: function (index, layero) {
