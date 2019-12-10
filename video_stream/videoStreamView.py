@@ -9,6 +9,7 @@ video_camera = None
 global_frame = None
 
 
+
 def video_stream():
     global video_camera
     global global_frame

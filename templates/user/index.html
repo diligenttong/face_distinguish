@@ -14,28 +14,7 @@
 
 
     <style>
-        .dp {
-            display: inline-block;
-            padding: 15px;
-            /*超出文字隐藏*/
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            width: 300px;
-            max-width: 356px;
-            max-height: 560px;
-            background: rosybrown;
-        }
-        .dp .dp-title img {
-            width: 270px;
-            height: 200px;
-            /*图片上的动画在2秒内完成*/
-            transition: all 1.5s;
-        }
-        .dp .dp-title img:hover {
-            transform: scale(1.2);
 
-        }
 
 
     </style>
@@ -217,7 +196,11 @@
             <h3 class="page-header">视频画面</h3>
             <div class="row">
                 <div class="col-lg-10">
-                    <img id="video" src="/video_viewer">
+                    <button class="btn btn-default">实时画面</button>
+                    <button class="btn btn-default">暂停画面</button>
+                    <div class="video_viewer">
+{#                        <img id="video" src="/video_viewer">#}
+                    </div>
                 </div>
             </div>
         </div>
