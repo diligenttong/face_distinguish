@@ -201,16 +201,15 @@ var deleteDepart = function (url, id) {
             'id': id
         };
         sendMessage(url, jsondata, function (res) {
-            let resp = res;
-            let data = res.data;
+            let data = res;
             if (data.success) {
                 layer.close(layerIndex);
-                successLayerAlert("删除成功!", false);
+                successLayerAlert("删除成功!",true);
             } else {
                 layer.close(layerIndex);
                 let ct = data.context;
                 let msg = ct.msg;
-                failLayerAlert("删除失败！" + msg, false);
+                failLayerAlert(msg, false);
             }
 
 
