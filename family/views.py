@@ -40,8 +40,22 @@ def familyAdd(request):
 
 def familyAddDepartLayer(request):
     return render(request, 'family/addDepartLayer.html', locals())
-
+import simplejson
 def familyEditDepartLayer(request):
+    ret = {"success": False, "context": {"msg":""}}
+    if request.method == "POST":
+        data = simplejson.loads(request.body.decode())
+        id = data["id"]
+        name = data["name"]
+        num = models.Family.objects.update(id=id,name=name)
+        if num >= 1:
+            ret['success'] = True
+            ret['context'] ['msg'] = '编辑成功'
+        else:
+            ret['success'] = False
+            ret['context']['msg'] = '失败了'
+        return JsonResponse(ret)
+
     return render(request, 'family/editDepartLayer.html', locals())
 
 
