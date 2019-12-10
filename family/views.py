@@ -58,7 +58,6 @@ def familyEditDepartLayer(request):
     ret = {"success": False, "context": {"msg":""}}
     if request.method == "POST":
         data = json.loads(request.body.decode())
-        print(data)
         id = data["id"]
         name = data["name"]
         num = models.Family.objects.update(id=id,name=name)
@@ -74,7 +73,7 @@ def familyEditDepartLayer(request):
 
 def delete_depart(request):
     ret = {"success": False, "context": {"msg": ""}}
-    data = simplejson.loads(request.body.decode())
+    data = json.loads(request.body.decode())
     id = data['id']
     s = models.Family.objects.filter(id=id).delete()
     if s:

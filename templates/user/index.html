@@ -26,12 +26,14 @@
             max-height: 560px;
             background: rosybrown;
         }
+
         .dp .dp-title img {
             width: 270px;
             height: 200px;
             /*图片上的动画在2秒内完成*/
             transition: all 1.5s;
         }
+
         .dp .dp-title img:hover {
             transform: scale(1.2);
 
@@ -60,20 +62,13 @@
                 <a href="#add-depart" data-toggle="tab"><i class="fa fa-fw fa-folder"></i> 添加成员</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-file-o"></i>训练</a>
+                <a href="#train"  data-toggle="tab"><i class="fa fa-fw fa-file-o"></i>训练</a>
             </li>
             <li>
                 <a href="#video_viewer" data-toggle="tab"><i class="fa fa-fw fa-cog"></i>视频画面</a>
             </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw fa-plus"></i>警报管理 <span
-                        class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">警报</li>
-                    <li><a href="#">发送警报</a></li>
-                    <li><a href="#">解除警报</a></li>
-                    <li><a href="#">实时监控</a></li>
-                </ul>
+            <li>
+                <a href="#waring_manage" data-toggle="tab"><i class="fa fa-fw fa-plus"></i>警报管理</a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-fw fa-bank"></i> 查看</a>
@@ -194,25 +189,58 @@
                     </button>
                     <div class="dps">
                         {% for i in all_queryset %}
-                        <div class="dp">
-                            <div class="dp-title">
-                                <img src="/static/images/banner1.jpg" class="img-thumbnail" alt="">
-                                <h3>{{ i.name }}</h3>
+                            <div class="dp">
+                                <div class="dp-title">
+                                    <img src="/static/images/banner1.jpg" class="img-thumbnail" alt="">
+                                    <h3>{{ i.name }}</h3>
+                                </div>
+                                <div class="dp-handle">
+                                    <button class="btn btn-default"
+                                            onclick="editDepartLayer('/family/edit_depart_layer','/family/edit_depart_layer',{{ i.id }},'{{ i.name }}')">
+                                        <span class="glyphicon glyphicon-pencil"> </span> 编辑
+                                    </button>
+                                    <button class="btn btn-default"
+                                            onclick="deleteDepart('/family/delete_depart',{{ i.id }})"><span
+                                            class="glyphicon glyphicon-trash"> </span> 删除
+                                    </button>
+                                </div>
                             </div>
-                            <div class="dp-handle">
-                                <button class="btn btn-default" onclick="editDepartLayer('/family/edit_depart_layer','/family/edit_depart_layer',{{ i.id }},'{{ i.name }}')">
-                                    <span class="glyphicon glyphicon-pencil"> </span> 编辑
-                                </button>
-                                <button class="btn btn-default" onclick="deleteDepart('/family/delete_depart',{{ i.id }})"><span class="glyphicon glyphicon-trash"> </span> 删除
-                                </button>
-                            </div>
-                        </div>
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="container-fluid col-lg-offset-1 tab-pane fade" id="waring_manage">
+            <h3 class="page-header">警报管理</h3>
+            <div class="row">
+                <div class="col-lg-10">
+                    <button type="button" class="btn btn-default"
+                            onclick="ring()">发送警报
+                    </button>
+                    <button type="button" class="btn btn-default"
+                            onclick="close_ring()">解除警报
+                    </button>
+                    <div align="left">
+                        <audio controls="controls" id="audio" loop style="display: none">
+                            <source src="/static/yinxiao1199.mp3">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid col-lg-offset-1 tab-pane fade" id="train">
+            <h3 class="page-header">训练</h3>
+            <div class="row">
+                <div class="col-lg-10">
+                    <button type="button" class="btn btn-default"
+                            onclick="">采集信息
+                    </button>
+                       <button type="button" class="btn btn-default"
+                            onclick="train(url)">训练
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid col-lg-offset-1 tab-pane fade" id="video_viewer">
             <h3 class="page-header">视频画面</h3>
             <div class="row">
@@ -233,6 +261,19 @@
 <script type="text/javascript" src="/static/js/layer/layer.js"></script>
 
 <script type="text/javascript">
+    var ring = function (){
+      {#$('#audio').show();#}
+        let palyer = $('#audio')[0];
+      palyer.play();
+
+    };
+    var close_ring = function (){
+          let palyer = $('#audio')[0];
+      palyer.pause();
+    };
+    var train = function(url){
+
+    };
     $(document).ready(function () {
         var trigger = $('.hamburger'),
             overlay = $('.overlay'),
