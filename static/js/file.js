@@ -18,19 +18,3 @@
             }
         });
     };
-
-
-var getFamilyDepart = function (url,name=null) {
-
-    if (name === null){
-    sendMessage(url,)
-    }else {
-        let json_data={'name':name};
-        sendMessage(url,json_data,function (res) {
-            
-        },function (e) {
-            
-        })
-    }
-
-};

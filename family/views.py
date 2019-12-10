@@ -41,6 +41,9 @@ def familyAdd(request):
 def familyAddDepartLayer(request):
     return render(request, 'family/addDepartLayer.html', locals())
 
+def familyEditDepartLayer(request):
+    return render(request, 'family/editDepartLayer.html', locals())
+
 
 
 @login_check
