@@ -17,7 +17,7 @@ def login(request):
             auth.login(request,user)
             request.session['username'] = username
             request.session['is_login'] = True
-            return redirect('home')
+            return redirect('HandleIndex')
         error = '用户名或密码错误'
     return render(request,'user/login.html',locals())
 # 注销

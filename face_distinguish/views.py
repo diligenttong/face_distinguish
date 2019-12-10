@@ -1,6 +1,11 @@
 from django.shortcuts import render
+from User.models import Family
 def home(request):
     return render(request,'home.html')
 
 def handleIndex(request):
-    return render(request,'user/index.html')
+    all_queryset = Family.objects.all()
+    return render(request,'user/index.html',locals())
+
+# def familyAddDepartLayer(request):
+#     return render(request,'family/addDepartLayer.html')

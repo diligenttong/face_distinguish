@@ -161,37 +161,41 @@
             <h3 class="page-header">添加成员</h3>
             <div class="row">
                 <div class="col-lg-10">
-                     <button type="button" class="btn btn-default" onclick="addDepartLayer('/family/add_depart_layer','')">新增</button>
+                     <button type="button" class="btn btn-default" onclick="addDepartLayer('/family/add_depart_layer/','')">新增</button>
                     <table class="table">
-                    <caption>成员列表</caption>
+                    <caption>家庭成员</caption>
                     <thead>
                     <tr>
-                        <th>产品</th>
-                        <th>付款日期</th>
-                        <th>状态</th>
+                        <th>姓名</th>
+                        <th>照片</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for i in all_queryset %}
                     <tr class="active">
-                        <td>产品1</td>
-                        <td>23/11/2013</td>
-                        <td>待发货</td>
+                        <td>{{ i.name }}</td>
+                        <td><img src="{{ i.photo}}" height="200" width="200" /></td>
+                        <td><div class="am-btn-group am-btn-group-xs"><button type="button" id="depart_27" class="am-btn am-btn-default am-btn-xs am-text-secondary btnedit"><span class="am-icon-pencil-square-o"></span> <a href="{% url 'familyUpdate' i.id %}">编辑</a></button><button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger amt-hide-sm-only" onclick="deleteDepart(27,1)"><span class="am-icon-trash-o"></span>  <a href={% url 'familyDelete' i.id %}>删除</a></button><button type="button" class="am-btn am-btn-default btnAdd">
+										</button></div>
+                        </td>
                     </tr>
-                    <tr class="success">
-                        <td>产品2</td>
-                        <td>10/11/2013</td>
-                        <td>发货中</td>
-                    </tr>
-                    <tr class="warning">
-                        <td>产品3</td>
-                        <td>20/10/2013</td>
-                        <td>待确认</td>
-                    </tr>
-                    <tr class="danger">
-                        <td>产品4</td>
-                        <td>20/10/2013</td>
-                        <td>已退货</td>
-                    </tr>
+                    {% endfor %}
+{#                    <tr class="success">#}
+{#                        <td>产品2</td>#}
+{#                        <td>10/11/2013</td>#}
+{#                        <td>发货中</td>#}
+{#                    </tr>#}
+{#                    <tr class="warning">#}
+{#                        <td>产品3</td>#}
+{#                        <td>20/10/2013</td>#}
+{#                        <td>待确认</td>#}
+{#                    </tr>#}
+{#                    <tr class="danger">#}
+{#                        <td>产品4</td>#}
+{#                        <td>20/10/2013</td>#}
+{#                        <td>已退货</td>#}
+{#                    </tr>#}
                     </tbody>
                 </table>
                 </div>
