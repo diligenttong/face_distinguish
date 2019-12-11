@@ -52,7 +52,7 @@ class Res10CaffeFaceModel:
         self._confidence = confidence
         self._faceDetectModel = cv2.dnn.readNetFromCaffe(self._deployPath,self._faceDetectModelPath)
         self._face2DataModel = cv2.dnn.readNetFromTorch(self._face2DataModelPath)
-        #self._labelEncoding = pickle.loads(open('img_pro/train_data/pickle_data/labelEncoding.pickle', "rb").read()) #y编码器
+        self._labelEncoding = pickle.loads(open('img_pro/train_data/pickle_data/labelEncoding.pickle', "rb").read()) #y编码器
 
 
         self._labelX = []
