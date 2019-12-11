@@ -8,16 +8,15 @@ from imutils.video import FPS as FS
 import cv2
 
 class MonitoringThread(threading.Thread):
-    def __init__(self, name, camera, save_video_path):
+    def __init__(self,threadName):
         threading.Thread.__init__(self)
-        self.name = name
+        self.threadName = threadName
         self.isRunning = True
-        self._res={'category':'Mei de ren','probability':''}
-
+        self._res = {'category': 'Mei de ren', 'probability': ''}
 
     def run(self):
         # 打开视频，获取帧
-        vs = VS(src=0).start()
+        vs = VS(src=0+cv2.CAP_DSHOW).start()
         # 线程休眠，让摄像头启动
         time.sleep(2)
         # 获取帧
@@ -31,9 +30,10 @@ class MonitoringThread(threading.Thread):
                 continue
             frame = frame[:, ::-1]
             fs.update()
-            self._res, startX, startY, endX, endY = model.predict(frame)
+            self._res, startX, startY, endX, endY = model.predict(frame,Res10CaffeFaceModel.FIT_MODEL_SVC)
+
             if self._res["category"] is None:
-                self._res["category"] = "Mei de ren"
+                self._res["category"] = "Mei d ren"
                 self._res["probability"] = ""
             else:
                 if self._res["probability"] > 0.8:
@@ -61,6 +61,8 @@ class MonitoringThread(threading.Thread):
 
     def getRes(self):
         return self._res
+    def getThreadName(self):
+        return self.threadName
 
     def __del__(self):
         pass

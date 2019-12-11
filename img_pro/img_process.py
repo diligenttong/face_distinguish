@@ -52,7 +52,7 @@ class Res10CaffeFaceModel:
         self._confidence = confidence
         self._faceDetectModel = cv2.dnn.readNetFromCaffe(self._deployPath,self._faceDetectModelPath)
         self._face2DataModel = cv2.dnn.readNetFromTorch(self._face2DataModelPath)
-        self._lableEncoding = None #y编码器
+        self._lableEncoding = pickle.loads(open('img_pro/train_data/pickle_data/lableEncoding.pickle', "rb").read()) #y编码器
 
 
         self._labelX = []
@@ -168,6 +168,11 @@ class Res10CaffeFaceModel:
         self._lableEncoding = LabelEncoder()
         #编码y标签
         labelys= self._lableEncoding.fit_transform(data['labelY'])
+        print("开始写入lableEncoding")
+        f = open('img_pro/train_data/pickle_data/lableEncoding.pickle', 'wb')
+        f.write(pickle.dumps(labelys))
+        f.close()
+        print("结束写入写入lableEncoding")
         self._recognizer = None
         self._fit_model = fit_model
         if fit_model == Res10CaffeFaceModel.FIT_MODEL_SVC:
@@ -186,9 +191,11 @@ class Res10CaffeFaceModel:
             self._recognizer.train(np.asarray(data['labelX']), np.asarray(labelys))
         return self._recognizer
 
-    def predict(self,img):
+    def predict(self,img,model = FIT_MODEL_SVC):
+
         if self._recognizer is None:
             raise Exception("模型为空,请先训练,然后重洗启动!")
+        self._fit_model = model
         sx,sy,ex,ey=0,0,56,20
         res={'category':None,'probability':None}
 
@@ -221,7 +228,7 @@ class Res10CaffeFaceModel:
                 # 确保脸部的宽高足够大
                 if f_w < 20 or f_h < 20:
                     return (res, sx, sy, ex, ey)
-
+                print('shshshsh')
                 # 为人脸ROI构造一个blob，然后通过我们的人脸嵌入模型传递该blob，得到人脸的128-d维度量化
                 face_blob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
                 self._face2DataModel.setInput(face_blob)
@@ -236,6 +243,7 @@ class Res10CaffeFaceModel:
                     proba = preds[j] #概率
                     res["category"] = self._lableEncoding.classes_[j]
                     res["probability"] = proba
+                    print("FIT_MODEL_SVC")
 
                 if self._fit_model == Res10CaffeFaceModel.FIT_MODEL_EIGEN or \
                    self._fit_model == Res10CaffeFaceModel.FIT_MODEL_FISHER or \
@@ -244,6 +252,7 @@ class Res10CaffeFaceModel:
                     print(pre)
                     res["category"] = self._lableEncoding.classes_[pre[0]]
                     res["probability"] = pre[1]
+                    print("FIT_MODEL_EIGEN")
 
         return (res, sx, sy, ex, ey)
 

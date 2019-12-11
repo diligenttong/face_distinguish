@@ -119,9 +119,12 @@ def trainModel(request):
         # 训练人脸识别分类器(不是人脸检测)
         print("开始训练")
         cls = model.train(Res10CaffeFaceModel.FIT_MODEL_SVC, True)
+        print("训练结束")
+        print("开始写入模型")
         f = open('img_pro/train_data/pickle_data/train.pickle', 'wb')
         f.write(pickle.dumps(cls))
         f.close()
+        print("写入模型结束")
         print("训练结束")
         ret = {"success": False, "context": {"msg": ""}}
         if cls:
@@ -181,9 +184,3 @@ def familyDelete(request, id):
 def warning(request):
     return render(request, 'warning/demo.html')
 
-
-def train(request, id):
-    obj = models.Family.objects.filter(id=id).first()
-    img = obj.photo
-    ret = {"img": img}
-    return JsonResponse(ret)
