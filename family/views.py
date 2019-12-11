@@ -120,7 +120,7 @@ def trainModel(request):
         print("开始训练")
         cls = model.train(Res10CaffeFaceModel.FIT_MODEL_SVC, True)
         f = open('img_pro/train_data/pickle_data/train.pickle', 'wb')
-        pickle.dump(cls, f)
+        f.write(pickle.dumps(cls))
         f.close()
         print("训练结束")
         ret = {"success": False, "context": {"msg": ""}}
