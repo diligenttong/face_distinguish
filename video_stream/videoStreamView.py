@@ -109,8 +109,8 @@ def videoCollectionInfo(request):
 def videoCollectionInfoStop(request):
    if request.method == 'POST':
        global model
-       print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
        if model is not None:
+           print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
            model.stop()
        return JsonResponse({})
 

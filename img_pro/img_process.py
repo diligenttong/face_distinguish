@@ -59,7 +59,8 @@ class Res10CaffeFaceModel:
         self._labelY = []
         self._num = 0
         self._pickelDataPath = ''
-        self._recognizer=None  #训练好的模型
+
+        self._recognizer = pickle.loads(open('img_pro/train_data/pickle_data/train.pickle', "rb").read())  #训练好的模型
         self._fit_model=None   #训练时使用的模型
 
 
@@ -172,7 +173,6 @@ class Res10CaffeFaceModel:
         if fit_model == Res10CaffeFaceModel.FIT_MODEL_SVC:
             self._recognizer = SVC(C=1.0, kernel="linear", probability=True)
             self._recognizer.fit(data['labelX'], labelys)
-            return self._recognizer
 
         if fit_model == Res10CaffeFaceModel.FIT_MODEL_EIGEN:
             self._recognizer = cv2.face.EigenFaceRecognizer_create()
@@ -184,9 +184,11 @@ class Res10CaffeFaceModel:
         if fit_model == Res10CaffeFaceModel.FIT_MODEL_LBPH:
             self._recognizer = cv2.face.LBPHFaceRecognizer_create()
             self._recognizer.train(np.asarray(data['labelX']), np.asarray(labelys))
+        return self._recognizer
 
     def predict(self,img):
-
+        if self._recognizer is None:
+            raise Exception("模型为空,请先训练,然后重洗启动!")
         sx,sy,ex,ey=0,0,56,20
         res={'category':None,'probability':None}
 
