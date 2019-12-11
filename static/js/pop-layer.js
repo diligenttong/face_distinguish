@@ -205,7 +205,7 @@ var editDepartLayer = function (pageurl, submiturl, id, depart_name) {
             }
             let data = {
                 'id': id,
-                'name': name,
+                'name': name
             };
             sendMessage(submiturl, data, function (res) {
                 let resp = res;
@@ -213,14 +213,15 @@ var editDepartLayer = function (pageurl, submiturl, id, depart_name) {
                 if (success) {
                     let ct = resp['context'];
                     let msg = ct['msg'];
-                    layer.close(index);
                     successLayerAlert(msg, true);
+                     layer.close(index);
                 } else {
                     let ct = resp['context'];
                     let msg = ct['msg'];
                     failLayerAlert(msg, false);
                 }
             }, function (e) {
+
                 failLayerAlert('发送失败!', false);
             })
         },

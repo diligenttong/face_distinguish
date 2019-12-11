@@ -31,6 +31,7 @@ def familyEditDepartLayer(request):
     ret = {"success": False, "context": {"msg": ""}}
     if request.method == "POST":
         data = json.loads(request.body.decode())
+        print(data)
         id = data["id"]
         name = data["name"]
         num = models.Family.objects.update(id=id, name=name)

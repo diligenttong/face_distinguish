@@ -229,7 +229,6 @@ class Res10CaffeFaceModel:
                 # 确保脸部的宽高足够大
                 if f_w < 20 or f_h < 20:
                     return (res, sx, sy, ex, ey)
-                print('shshshsh')
                 # 为人脸ROI构造一个blob，然后通过我们的人脸嵌入模型传递该blob，得到人脸的128-d维度量化
                 face_blob = cv2.dnn.blobFromImage(face, 1.0 / 255, (96, 96), (0, 0, 0), swapRB=True, crop=False)
                 self._face2DataModel.setInput(face_blob)
@@ -244,7 +243,6 @@ class Res10CaffeFaceModel:
                     proba = preds[j] #概率
                     res["category"] = self._labelEncoding.classes_[j]
                     res["probability"] = proba
-                    print("FIT_MODEL_SVC")
 
                 if self._fit_model == Res10CaffeFaceModel.FIT_MODEL_EIGEN or \
                    self._fit_model == Res10CaffeFaceModel.FIT_MODEL_FISHER or \
@@ -253,7 +251,6 @@ class Res10CaffeFaceModel:
                     print(pre)
                     res["category"] = self._labelEncoding.classes_[pre[0]]
                     res["probability"] = pre[1]
-                    print("FIT_MODEL_EIGEN")
 
         return (res, sx, sy, ex, ey)
 
