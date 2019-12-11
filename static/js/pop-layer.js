@@ -271,3 +271,31 @@ var deleteDepart = function (url, id) {
         });
     });
 };
+var trainModel = function (url) {
+    let strTip = "训练可能花费一段时间，确定<span style='color:red;'>训练?</span>";
+    layer.confirm(strTip, {btn: ["确定", "算了"], title: "警告", icon: 3}, function (index) {
+        let layerIndex = layer.msg("正在训练,请稍后!!", {
+            shadeClose: false,//点击遮罩层不关闭
+            time: 80000,//60秒后自动关闭
+            icon: 16, // 0~2 ,0比较好看
+            shade: [0.5, 'black'] // 黑色透明度0.5背景
+        });
+
+        sendMessage(url, {}, function (res) {
+            let data = res;
+            if (data.success) {
+                layer.close(layerIndex);
+                successLayerAlert("训练成功!",true);
+            } else {
+                layer.close(layerIndex);
+                let ct = data.context;
+                let msg = ct.msg;
+                failLayerAlert(msg, false);
+            }
+
+
+        }, function (e) {
+
+        });
+    });
+};
