@@ -52,7 +52,7 @@ class Res10CaffeFaceModel:
         self._confidence = confidence
         self._faceDetectModel = cv2.dnn.readNetFromCaffe(self._deployPath,self._faceDetectModelPath)
         self._face2DataModel = cv2.dnn.readNetFromTorch(self._face2DataModelPath)
-        self._lableEncoding = pickle.loads(open('img_pro/train_data/pickle_data/lableEncoding.pickle', "rb").read()) #y编码器
+        #self._labelEncoding = pickle.loads(open('img_pro/train_data/pickle_data/labelEncoding.pickle', "rb").read()) #y编码器
 
 
         self._labelX = []
@@ -165,14 +165,9 @@ class Res10CaffeFaceModel:
         else:
             data = {'labelX': self._labelX, 'labelY': self._labelY}
 
-        self._lableEncoding = LabelEncoder()
+        self._labelEncoding = LabelEncoder()
         #编码y标签
-        labelys= self._lableEncoding.fit_transform(data['labelY'])
-        print("开始写入lableEncoding")
-        f = open('img_pro/train_data/pickle_data/lableEncoding.pickle', 'wb')
-        f.write(pickle.dumps(self._lableEncoding))
-        f.close()
-        print("结束写入写入lableEncoding")
+        labelys= self._labelEncoding.fit_transform(data['labelY'])
         self._recognizer = None
         self._fit_model = fit_model
         if fit_model == Res10CaffeFaceModel.FIT_MODEL_SVC:
@@ -189,6 +184,12 @@ class Res10CaffeFaceModel:
         if fit_model == Res10CaffeFaceModel.FIT_MODEL_LBPH:
             self._recognizer = cv2.face.LBPHFaceRecognizer_create()
             self._recognizer.train(np.asarray(data['labelX']), np.asarray(labelys))
+
+        print("开始写入labelEncoding")
+        f = open('img_pro/train_data/pickle_data/labelEncoding.pickle', 'wb')
+        f.write(pickle.dumps(self._labelEncoding))
+        f.close()
+        print("结束写入写入labelEncoding")
         return self._recognizer
 
     def predict(self,img,model = FIT_MODEL_SVC):
@@ -241,7 +242,7 @@ class Res10CaffeFaceModel:
                     #选取概率最大的最大的下标
                     j = np.argmax(preds)
                     proba = preds[j] #概率
-                    res["category"] = self._lableEncoding.classes_[j]
+                    res["category"] = self._labelEncoding.classes_[j]
                     res["probability"] = proba
                     print("FIT_MODEL_SVC")
 
@@ -250,7 +251,7 @@ class Res10CaffeFaceModel:
                    self._fit_model == Res10CaffeFaceModel.FIT_MODEL_LBPH:
                     pre=self._recognizer.predict(vector128D) #[类别，准确率]
                     print(pre)
-                    res["category"] = self._lableEncoding.classes_[pre[0]]
+                    res["category"] = self._labelEncoding.classes_[pre[0]]
                     res["probability"] = pre[1]
                     print("FIT_MODEL_EIGEN")
 
