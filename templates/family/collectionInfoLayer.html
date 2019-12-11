@@ -9,6 +9,7 @@
     <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
     <script src="/static/css/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     <script src="/static/js/pop-layer.js"></script>
+    <script src="/static/js/file.js"></script>
 
     <style>
         .layer-contexnt{
@@ -35,13 +36,15 @@
 
     var childFunction = function (initial) {
         let str = "<img id=\"\" src=\"/video_collection_info?initial="+initial+"\">";
-        let stra = "<a id=\"stop\" href=\"/video_collection_info_stop\">ttt</a>";
         $('.layer-contexnt').append(str);
-        $('.layer-contexnt').append(stra);
     };
     var stopCllocetion = function () {
-        console.log("ttt");
-        $('#stop').click()
+        console.log("ttttt");
+        sendMessage('/video_collection_info_stop',{},function (res) {
+            console.log("发送成功");
+        },function (e) {
+            console.log("发送错误");
+        })
     }
 
 </script>

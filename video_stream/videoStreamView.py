@@ -58,7 +58,11 @@ def videoViewerState(request):
             video_camera = VideoCamera()
         data = json.loads(request.body.decode())
         play_state = data['play_state']
-        video_camera.set_play_state(play_state)
+        if play_state:
+            video_camera.start_video()
+        #video_camera.set_play_state(play_state)
+        else:
+            video_camera.stop_video()
         ret = {'success':True,'context':{}}
         return JsonResponse(ret)
 
@@ -103,9 +107,11 @@ def videoCollectionInfo(request):
                                  content_type='multipart/x-mixed-replace; boundary=frame')
 
 def videoCollectionInfoStop(request):
-    global model
-    print("hhhhh")
-    if model is not None:
-        model.stop()
+   if request.method == 'POST':
+       global model
+       print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+       if model is not None:
+           model.stop()
+       return JsonResponse({})
 
 

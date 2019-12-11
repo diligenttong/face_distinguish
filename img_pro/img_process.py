@@ -293,7 +293,7 @@ class Res10CaffeFaceModel:
 
 
     def start(self):
-        self._vs = VS(src=0).start()
+        self._vs = VS(src=0+cv2.CAP_DSHOW).start()
         time.sleep(2)
         self._fs = FS().start()
 

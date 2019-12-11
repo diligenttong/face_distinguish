@@ -141,21 +141,19 @@ var collectionInfoLayer = function (pageurl, submiturl,initial) {
         //确定按钮被点击 ,index 当前层索引 layero 当前层的doc 顺序和success的相反
         yes: function (index, layero) {
 
-            var iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
+            let iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
             iframeWin.stopCllocetion(); //调用子窗口的函数来停止
-            layer.close(index);
             //获取子窗口中iframe中id为fm的表格文本
             // let formdocument = $(layero).find("iframe")[0].contentWindow.document.getElementById("fm");
 
         },
         btn2: function (index, layero) {
-            var iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
+            let iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
             iframeWin.stopCllocetion(); //调用子窗口的函数来停止
-            layer.close(index);
         },
         //弹出界面成功后执行
         success: function (layero, index) {
-            var iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
+            let iframeWin=window[layero.find('iframe')[0]['name']];//得到layero doc 中iframe 页的窗口对象
             iframeWin.childFunction(initial); //调用子窗口的函数来传
         },
         //layer结束时调用

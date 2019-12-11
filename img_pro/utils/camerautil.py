@@ -32,7 +32,7 @@ class RecordingThread (threading.Thread):
 class VideoCamera(object):
     def __init__(self):
 
-        self.cap = cv2.VideoCapture(0)
+        self.cap = None
         
 
         self.is_record = False
@@ -61,8 +61,9 @@ class VideoCamera(object):
         self.play_state = state
 
     def start_video(self):
-        self.cap = cv2.VideoCapture(0)
-        self.play_state = True
+        if self.cap is None:
+            self.cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+            self.play_state = True
 
     def stop_video(self):
         if self.cap is not None:
