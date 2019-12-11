@@ -170,7 +170,7 @@ class Res10CaffeFaceModel:
         labelys= self._lableEncoding.fit_transform(data['labelY'])
         print("开始写入lableEncoding")
         f = open('img_pro/train_data/pickle_data/lableEncoding.pickle', 'wb')
-        f.write(pickle.dumps(labelys))
+        f.write(pickle.dumps(self._lableEncoding))
         f.close()
         print("结束写入写入lableEncoding")
         self._recognizer = None

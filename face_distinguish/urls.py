@@ -40,7 +40,7 @@ urlpatterns = [
     path('video_collection_info_stop', videoStreamView.videoCollectionInfoStop, name='videoCollectionInfoStop'),
     path('trainModel', view.trainModel, name='trainModel'),
 
-    path('warning/', view.warning, name='warning'),
+    # path('warning/', view.warning, name='warning'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
 
 

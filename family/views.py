@@ -10,44 +10,6 @@ from img_pro.img_process import Res10CaffeFaceModel
 
 
 # Create your views here.
-
-def login_check(func):
-    def inner(request, *args, **kwargs):
-        user = request.session.get('username')
-        if not user:
-            return redirect('/user/login/')
-        res = func(request, *args, **kwargs)
-        return res
-
-    return inner
-
-
-@login_check
-def family(request):
-    familes = models.Family.objects.all()
-    if request.method == 'POST':
-        name = request.POST['name']
-        familes = models.Family.objects.filter(name=name)
-
-    return render(request, 'family/depart.html', locals())
-    # def post(self,request):
-    #     name = request.POST['name']
-    #     photo = request.POST['photo']
-    #     models.Family.objects.update_or_create(name=name,photo=photo)
-    #     return redirect('/family/')
-
-
-@login_check
-def familyAdd(request):
-    obj = request.user
-    if request.method == 'POST':
-        name = request.POST['departName']
-        photo = request.POST['upload']
-        models.Family.objects.filter(name=obj).create(name=name, photo=photo)
-        return redirect('/family/')
-    return render(request, 'family/addDepart.html', locals())
-
-
 def familyAddDepartLayer(request):
     ret = {"success": False, "context": {"msg": ""}}
     if request.method == "POST":
@@ -136,37 +98,6 @@ def trainModel(request):
         return JsonResponse(ret)
 
 
-# def familyAddDepart(request):
-#     ret = {"success":False, "context":""}
-#     #TODO： 解析json数据，写入库 如果成功，返回 {success:True,context:{msg:成功}
-#     #如果失败未知原因 返回{success:False,context:{msg:失败}
-#     #如果失败 已知原因  返回{success:False,context:{msg:原因}
-#
-#     return JsonResponse(ret)
-
-
-@login_check
-def familyUpdate(request, id):
-    obj = models.Family.objects.filter(id=id)
-    if request.method == 'POST':
-        name = request.POST['departName']
-        f1 = request.FILES.get('upload')
-        photo = 'familyMember/' + f1.name
-        photoName = settings.MEDIA_ROOT.replace('\\', '/') + "/familyMember/" + f1.name
-        with open(photoName, 'wb') as f:
-            for content in f1.chunks():
-                f.write(content)
-        obj.update(name=name, photo=photo)
-        return redirect('/family/')
-    return render(request, 'family/updateDepart.html', locals())
-
-
-@login_check
-def familyDelete(request, id):
-    obj = models.Family.objects.filter(id=id)
-    obj.delete()
-    return redirect('/family/')
-
 
 # class FamilyDetail(views.View):
 #     def get(self,request,id):
@@ -180,7 +111,5 @@ def familyDelete(request, id):
 #     def delete(self,request,id):
 #         models.Family.objects.filter(id=id).delete()
 #         return HttpResponse()
-@login_check
-def warning(request):
-    return render(request, 'warning/demo.html')
+
 
