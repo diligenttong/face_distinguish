@@ -31,20 +31,10 @@ urlpatterns = [
     path('family/add_depart_layer', view.familyAddDepartLayer, name='familyAddDepartLayer'),
     path('family/edit_depart_layer', view.familyEditDepartLayer, name='familyEditDepartLayer'),
     path('family/delete_depart', view.delete_depart, name='delete_depart'),
-
-
     path('video_viewer',videoStreamView.videoViewer,name='videoViewer'),
     path('video_viewer_state',videoStreamView.videoViewerState,name='videoViewer'),
     path('video_collection_info_layer', videoStreamView.videoCollectionInfoLayer, name='videoCollectionInfoLayer'),
     path('video_collection_info', videoStreamView.videoCollectionInfo, name='videoCollectionInfo'),
     path('video_collection_info_stop', videoStreamView.videoCollectionInfoStop, name='videoCollectionInfoStop'),
     path('trainModel', view.trainModel, name='trainModel'),
-
-    # path('warning/', view.warning, name='warning'),
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-
-
-
-
-
 ]

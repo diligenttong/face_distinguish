@@ -31,10 +31,15 @@ def familyEditDepartLayer(request):
     ret = {"success": False, "context": {"msg": ""}}
     if request.method == "POST":
         data = json.loads(request.body.decode())
-        print(data)
-        id = data["id"]
-        name = data["name"]
-        num = models.Family.objects.update(id=id, name=name)
+        uid = int(data["id"])
+        uname = data["name"]
+        num = models.Family.objects.filter(id=uid).update(name = uname)
+        # family = models.Family.objects.get(id = id)
+        # family.name = name
+        # num = family.save()
+
+
+        #num = models.Family.objects.filter(id=id).first().update(name=name)
         if num >= 1:
             ret['success'] = True
             ret['context']['msg'] = '编辑成功'
@@ -42,7 +47,7 @@ def familyEditDepartLayer(request):
             ret['success'] = False
             ret['context']['msg'] = '失败了'
         return JsonResponse(ret)
-
+    print(1)
     return render(request, 'family/editDepartLayer.html', locals())
 
 
